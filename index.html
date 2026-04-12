@@ -15,6 +15,34 @@
     
     #main-wrapper { display: flex; flex-direction: column; flex: 1; position: relative; }
     #map { height: 200px; width: 100%; background: #f0f0f0; }
+    /* 1. [모바일 기본] 모든 입력창 공통 설정 */
+    input, select, textarea { 
+      width: 100%; 
+      margin-bottom: 5px !important; /* 간격을 5px로 좁게 설정 */
+      padding: 0 12px; 
+      border: 1.5px solid #e2e8f0; 
+      border-radius: 8px; 
+      font-size: 14px; 
+      height: 40px;          /* 입력창 높이 조절 */
+      outline: none; 
+      box-sizing: border-box; /* 패딩이 높이에 영향을 주지 않도록 설정 */
+    }
+    
+    /* 2. [모바일 기본] 제보창 컨테이너 여백 줄이기 */
+    .form-container { 
+      padding: 8px 20px !important; /* 위아래는 8px로 좁게, 좌우는 20px 유지 */
+      background: white; 
+      flex: 1; 
+      max-height: 35%;       /* 높이 비중을 살짝 더 낮춤 */
+      overflow-y: auto; 
+      border-top: 1px solid #edf2f7; 
+    }
+    
+    /* 3. textarea는 높이가 따로 필요하니까 추가 */
+    textarea { 
+      height: 60px !important; 
+      padding: 8px 12px !important; 
+    }
 
     /* ✅ 필터 UI 스타일 */
     .filter-wrapper { position: absolute; top: 15px; left: 15px; z-index: 1000; }
@@ -36,7 +64,7 @@
     }
     .filter-item.active { background: #f0f9ff; color: #1DA1D2; border-color: #1DA1D2; font-weight: bold; }
 
-    .form-container { padding: 15px 20px; background: white; flex: 1; max-height: 40%; overflow-y: auto; border-top: 1px solid #edf2f7; }
+    .form-container { padding: 10px 20px; background: white; flex: 1; max-height: 38%; overflow-y: auto; border-top: 1px solid #edf2f7; }
     @media (min-width: 768px) {
       body { 
         height: auto !important; 
