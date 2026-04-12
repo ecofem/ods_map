@@ -38,16 +38,17 @@
 
     .form-container { padding: 15px 20px; background: white; flex: 1; max-height: 40%; overflow-y: auto; border-top: 1px solid #edf2f7; }
     @media (min-width: 768px) {
-      #main-wrapper { flex-direction: row; height: auto !important; min-height: unset !important; margin-bottom: 0 !important; align-items: flex-start; } 
+      body {height: auto !important;  min-height: 100vh; display: block !important; }
+      #main-wrapper { flex-direction: row; height: 500px !important; min-height: 500px !important; margin-bottom: 0 !important; align-items: flex-start; } 
       #map { flex: 1.6; height: 500px !important; border-top: none; border-right: 1px solid #edf2f7; }
       .form-container { flex: 1; max-width: 420px; height: 500px !important; border-top: none !important; padding: 20px; overflow-y: auto; }
     }
     
     input, select, textarea { width: 100%; margin-bottom: 8px; padding: 0 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 15px; height: 50px; outline: none; transition: all 0.2s; }
     input:focus, select:focus, textarea:focus { border-color: #1DA1D2; box-shadow: 0 0 0 3px rgba(29, 161, 210, 0.1); }
-    textarea { height: 80px !important; padding: 10px 12px; resize: none; }
+    textarea { height: 80px !important; padding: 10px 12px; resize: none; margin-bottom: 4px !important; display: block;}
     
-    .file-box { background: #f8fafc; border: 1.5px dashed #cbd5e0; padding: 10px; border-radius: 8px; font-size: 15px; text-align: center; margin-bottom: 8px; cursor: pointer; }
+    .file-box { background: #f8fafc; border: 1.5px dashed #cbd5e0; margin-top: 0px !important; padding: 10px; border-radius: 8px; font-size: 15px; text-align: center; margin-bottom: 8px; cursor: pointer; }
     #file-name { font-size: 12px; color: #718096; display: block; margin-top: 5px; }
 
     #submitBtn { width: 100%; padding: 12px; background: #333; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 16px; }
@@ -76,7 +77,7 @@
     }
     .report-btn { font-size: 13px !important; font-weight: 700 !important; color: #e53e3e !important; }
     
-    #footer { background: #fff; margin-top: 0px !important; padding: 20px 0; padding: 0px 0px 0px 0px; text-align: center; border-top: 1px solid #f7fafc; flex-shrink: 0; cursor: pointer; }
+    #footer { background: #fff; margin-top: 0px !important; padding: 0 0; text-align: center; border-top: 1px solid #f7fafc; flex-shrink: 0; cursor: pointer; }
     #footer img { height: 55px; }
     #footer p { font-size: 12px; color: #a0aec0; margin: 0px 0 0 0; } 
   </style>
@@ -110,7 +111,7 @@
     <ul id="searchList" style="list-style:none; padding:0; display:none; border:1px solid #e2e8f0; border-radius:12px; margin-bottom:12px; max-height:150px; overflow-y:auto;"></ul>
     
     <input type="text" id="placeName" placeholder="장소명">
-    <input type="text" id="address" placeholder="주소(검색/클릭 시 자동입력)" readonly>
+    <input type="text" id="address" placeholder="주소 (검색/클릭 시 자동입력)" readonly>
     <input type="hidden" id="lat"><input type="hidden" id="lng">
     
     <div style="display: flex; gap: 4px;">
