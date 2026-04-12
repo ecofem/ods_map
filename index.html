@@ -8,13 +8,13 @@
   <style>
     @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
     * { font-family: 'Pretendard', sans-serif; box-sizing: border-box; }
-    body { margin: 0; padding: 0; background: #fcfdfe; color: #333; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    body { margin: 0; padding: 0; background: #fcfdfe; color: #333; display: flex; flex-direction: column; min-height: 100vh }
     #header { background: white; padding: 0 20px; display: flex; align-items: center; gap: 12px; border-bottom: 3px solid #1DA1D2; height: 70px; flex-shrink: 0; z-index: 100; cursor: pointer; }
     #header img { height: 40px; } 
     #header h2 { margin: 0; font-size: 22px; font-weight: 800; color: #1DA1D2; letter-spacing: -0.5px; }
     
-    #main-wrapper { display: flex; flex-direction: column; flex: 1; min-height: 0; position: relative; }
-    #map { height: 40% !important; width: 100%; background: #f0f0f0; }
+    #main-wrapper { display: flex; flex-direction: column; flex: 1; position: relative; }
+    #map { height: 350px; width: 100%; background: #f0f0f0; }
 
     /* ✅ 필터 UI 스타일 */
     .filter-wrapper { position: absolute; top: 15px; left: 15px; z-index: 1000; }
@@ -38,7 +38,7 @@
 
     .form-container { padding: 15px 20px; background: white; flex: 1; max-height: 40%; overflow-y: auto; border-top: 1px solid #edf2f7; }
     @media (min-width: 768px) {
-      #main-wrapper { flex-direction: row; } 
+      #main-wrapper { flex-direction: row; height: calc(100vh - 70px); } 
       #map { flex: 1.6; height: 100% !important; border-top: none; border-right: 1px solid #edf2f7; }
       .form-container { flex: 1; max-width: 420px; max-height: none; }
     }
