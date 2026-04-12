@@ -38,22 +38,95 @@
 
     .form-container { padding: 15px 20px; background: white; flex: 1; max-height: 40%; overflow-y: auto; border-top: 1px solid #edf2f7; }
     @media (min-width: 768px) {
-      body {height: auto !important;  min-height: 100vh; display: block !important; }
-      #main-wrapper { flex-direction: row; height: 500px !important; min-height: 500px !important; margin-bottom: 0 !important; align-items: flex-start; } 
-      #map { flex: 1.6; height: 500px !important; border-top: none; border-right: 1px solid #edf2f7; }
-      .form-container { flex: 1; max-width: 420px; height: 500px !important; border-top: none !important; padding: 20px; overflow-y: auto; }
+      body { 
+        height: auto !important; 
+        min-height: 100vh; 
+        display: block !important; 
+      }
+    
+      #main-wrapper { 
+        display: flex !important;   /* ✅ 이 줄이 반드시 있어야 지도와 폼이 나란히 배치됩니다 */
+        flex-direction: row !important; 
+        height: 500px !important; 
+        min-height: 500px !important; 
+        margin-bottom: 0 !important; 
+        align-items: flex-start; 
+        background: white;
+      } 
+    
+      #map { 
+        flex: 1.6 !important;       /* ✅ 지도가 1.6만큼 차지 */
+        width: auto !important;      /* 넓이 자동 계산 */
+        height: 500px !important; 
+        border-top: none; 
+        border-right: 1px solid #edf2f7; 
+      }
+    
+      .form-container { 
+        flex: 1 !important;         /* ✅ 입력폼이 1만큼 차지 */
+        max-width: 420px; 
+        height: 500px !important; 
+        border-top: none !important; 
+        padding: 20px; 
+        overflow-y: auto; 
+        background: white;
+      }
+    
+      #footer {
+        margin-top: 0 !important;
+        padding: 15px 0 !important;
+      }
     }
     
-    input, select, textarea { width: 100%; margin-bottom: 8px; padding: 0 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 15px; height: 50px; outline: none; transition: all 0.2s; }
-    input:focus, select:focus, textarea:focus { border-color: #1DA1D2; box-shadow: 0 0 0 3px rgba(29, 161, 210, 0.1); }
-    textarea { height: 80px !important; padding: 10px 12px; resize: none; margin-bottom: 4px !important; display: block;}
+    /* 1. 모든 입력창 공통: 간격을 8px로 통일 */
+    input, select, textarea { 
+      width: 100%; 
+      margin-bottom: 8px !important; /* ✅ 모든 간격을 8px로 고정 */
+      padding: 0 12px; 
+      border: 1.5px solid #e2e8f0; 
+      border-radius: 8px; 
+      font-size: 15px; 
+      height: 45px; /* ✅ 50px은 크고 40px은 작다면 45px이 '황금 비율'입니다 */
+      outline: none; 
+      transition: all 0.2s; 
+    }
     
-    .file-box { background: #f8fafc; border: 1.5px dashed #cbd5e0; margin-top: 0px !important; padding: 10px; border-radius: 8px; font-size: 15px; text-align: center; margin-bottom: 8px; cursor: pointer; }
-    #file-name { font-size: 12px; color: #718096; display: block; margin-top: 5px; }
-
-    #submitBtn { width: 100%; padding: 12px; background: #333; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 16px; }
-    #submitBtn:disabled { background: #cbd5e0 !important; }
+    /* 2. 메모장 설정: 마진을 다른 요소와 똑같이 8px로 복구 */
+    textarea { 
+      height: 80px !important; 
+      padding: 12px; 
+      resize: none; 
+      margin-bottom: 8px !important; /* ✅ 4px에서 다시 8px로 복구 */
+      display: block;
+    }
     
+    /* 3. 사진 버튼: 위쪽 여백 없이 깔끔하게 */
+    .file-box { 
+      background: #f8fafc; 
+      border: 1.5px dashed #cbd5e0; 
+      margin-top: 0px; 
+      padding: 12px; 
+      border-radius: 8px; 
+      font-size: 14px; 
+      text-align: center; 
+      margin-bottom: 8px; /* ✅ 여기도 8px */
+      cursor: pointer; 
+    }
+    
+    /* 4. 제보하기 버튼 */
+    #submitBtn { 
+      width: 100%; 
+      padding: 14px; /* 버튼은 조금 더 도톰해야 누르기 편합니다 */
+      background: #333; 
+      color: white; 
+      border: none; 
+      border-radius: 10px; 
+      font-weight: 700; 
+      cursor: pointer; 
+      font-size: 16px; 
+      margin-top: 4px; /* 버튼만 아주 살짝 띄워주면 더 안정적입니다 */
+    }
+        
     /* ✅ 팝업창(인포윈도우) 디자인 개선 */
     .iw-container { padding: 10px; width: 260px; }
     .iw-tag-group { display: flex; align-items: center; gap: 15px; margin-top: 8px; }
