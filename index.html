@@ -209,7 +209,7 @@
 
   <div class="form-container">
      <div class="search-box" style="display:flex; gap:4px; align-items: center; margin-bottom: 8px;">
-      <input type="text" id="keyword" placeholder="장소명 검색" 
+      <input type="text" id="keyword" placeholder="장소 검색" 
          onkeypress="if(event.keyCode==13) { searchPlaces(); return false; }"
          style="margin-bottom: 0 !important; height: 40px;"> <button id="searchBtn" onclick="searchPlaces()" 
           style="width:75px; height:40px; background:#1DA1D2; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer; 
@@ -227,7 +227,7 @@
       <select id="placeType"><option value="">장소 유형</option></select>
       <select id="waterType"><option value="">제공 유형</option></select>
     </div>
-    <textarea id="memo" placeholder="추가 메모를 입력해주세요."></textarea>
+    <textarea id="memo" placeholder="추가 메모를 입력해주세요 (선택)"></textarea>
     
     <div class="file-box" onclick="document.getElementById('photo').click()">
       📷 현장 사진 첨부 (선택)
