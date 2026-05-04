@@ -228,7 +228,7 @@
       <select id="waterType"><option value="">제공 유형</option></select>
     </div>
     <textarea id="memo" placeholder="추가 메모를 입력해주세요 (선택)"></textarea>
-    
+    <input type="text" id="reporterName" placeholder="제보자 성함 또는 닉네임">
     <div class="file-box" onclick="document.getElementById('photo').click()">
       📷 현장 사진 첨부 (선택)
       <input type="file" id="photo" style="display:none" accept="image/*" onchange="document.getElementById('file-name').innerText = this.files[0].name">
@@ -441,6 +441,8 @@
       경도: document.getElementById('lng').value,
       장소유형: pType, 제공유형: wType,
       메모: document.getElementById('memo').value
+      제보자명: document.getElementById('reporterName').value
+
     };
 
     if (file) {
