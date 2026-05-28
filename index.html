@@ -93,7 +93,7 @@
       }
     
       .form-container { 
-        flex: 1 !important;         /* ✅ 입력폼이 1만큼 차지 */
+        flex: 1 !important;          /* ✅ 입력폼이 1만큼 차지 */
         max-width: 420px; 
         height: auto !important; 
         min-height: 550px !important;
@@ -159,27 +159,19 @@
     }
         
     /* ✅ 팝업창(인포윈도우) 디자인 개선 */
-    .iw-container { padding: 10px; width: 260px; }
-    .iw-tag-group { display: flex; align-items: center; gap: 15px; margin-top: 8px; }
+    .iw-container { padding: 10px; width: 280px; max-height: 350px; overflow-y: auto; }
+    .iw-item { border-bottom: 2px solid #edf2f7; padding-bottom: 12px; margin-bottom: 12px; }
+    .iw-item:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .iw-tag-group { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
     .iw-tag { font-size: 12px; color: #718096; display: flex; align-items: center; gap: 3px; }
     /* ✅ 팝업창 내 이미지 스타일 수정 */
-    .iw-photo { 
-      width: 100%; 
-      max-height: 150px; /* 너무 크지 않게 제한 */
-      min-height: 100px; /* 엑박일 때도 공간 확보해서 깨짐 방지 */
-      object-fit: cover; /* 이미지 비율 유지 */
-      border-radius: 8px; 
-      margin: 10px 0; 
-      cursor: pointer; 
-      border: 1px solid #eee;
-      background: #f8fafc; /* 로딩 중이거나 엑박일 때 배경색 */
+    .iw-photo-btn { 
+      display: block; padding: 8px; background: #1DA1D2; color: white; 
+      text-decoration: none; border-radius: 6px; text-align: center; font-size: 13px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin: 8px 0;
     }
     
-    /* ✅ 엑박 아이콘 숨기기 (선택사항) */
-    .iw-photo:not([src]), .iw-photo[src=""] {
-      display: none;
-    }
-    .report-btn { font-size: 13px !important; font-weight: 700 !important; color: #e53e3e !important; }
+    .report-btn { font-size: 12px !important; font-weight: 700 !important; color: #e53e3e !important; }
     
     #footer { background: #fff; margin-top: 0px !important; padding: 0 0; text-align: center; border-top: 1px solid #f7fafc; flex-shrink: 0; cursor: pointer; }
     #footer img { height: 55px; }
@@ -305,54 +297,81 @@
       renderMarkers();
   }
 
+  // ✅ 마커 겹침 해결을 위해 그룹화 로직이 적용된 renderMarkers
   function renderMarkers() {
       currentMarkers.forEach(m => m.setMap(null));
       currentMarkers = [];
       
+      // 1. 위경도가 똑같은 것끼리 묶기 위한 그룹 객체 생성
+      var groups = {};
+
       locationsData.forEach(loc => {
           if (loc.승인상태 === "승인") {
               const matchPlace = (filterState.place === 'all' || loc.장소유형 === filterState.place);
               const matchWater = (filterState.water === 'all' || loc.제공유형 === filterState.water);
               
               if (matchPlace && matchWater) {
-                  var m = new kakao.maps.Marker({ map: map, position: new kakao.maps.LatLng(loc.위도, loc.경도), image: markerImg });
-                  kakao.maps.event.addListener(m, 'click', function() {
-                      var photoBtn = "";
-                      if (loc.사진 && loc.사진.startsWith("http")) {
-                          photoBtn = `
-                            <div style="margin: 10px 0;">
-                              <a href="${loc.사진}" target="_blank" 
-                                 style="display: block; padding: 10px; background: #1DA1D2; color: white; 
-                                        text-decoration: none; border-radius: 8px; text-align: center; font-size: 13px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                 🖼️ 사진 보기
-                              </a>
-                            </div>
-                          `;
-                      }
-                  
-                      var content = `
-                          <div class="iw-container">
-                              <span class="iw-title" style="font-weight:800; color:#1DA1D2; font-size:16px;">${loc.장소명}</span>
-                              <div class="iw-tag-group">
-                                  <span class="iw-tag">📍 ${loc.장소유형}</span>
-                                  <span class="iw-tag">💧 ${loc.제공유형}</span>
-                              </div>
-                              <div class="iw-memo" style="font-size:13px; margin:10px 0; border-top:1px dashed #ddd; padding-top:10px; color:#4a5568; line-height:1.4;">
-                                  ${loc.메모 || '등록된 메모가 없습니다.'}
-                              </div>
-                              
-                              ${photoBtn} <button class="report-btn" onclick="openModify('${loc.일련번호}', '${loc.장소명}')" 
-                                      style="width:100%; margin-top:5px; padding:10px; border:1px solid #fed7d7; background:#fff5f5; cursor:pointer; border-radius:8px; font-size:12px; color:#e53e3e;">
-                                  정보 수정/삭제 신고
-                              </button>
-                          </div>`;
-                      
-                      infowindow.setContent(content);
-                      infowindow.open(map, m);
-                  });
-                  currentMarkers.push(m);
+                  // 위도와 경도를 묶어 하나의 고유한 key 키값으로 지정 (예: "37.56_126.97")
+                  var key = loc.위도 + "_" + loc.경도;
+                  if (!groups[key]) {
+                      groups[key] = [];
+                  }
+                  groups[key].push(loc); // 같은 좌표면 같은 바구니에 담기
               }
           }
+      });
+
+      // 2. 묶인 그룹별로 마커 딱 하나씩만 그리기
+      Object.keys(groups).forEach(key => {
+          var groupList = groups[key];
+          var firstLoc = groupList[0]; // 대표 좌표값으로 첫 번째 데이터 사용
+          
+          var m = new kakao.maps.Marker({ 
+              map: map, 
+              position: new kakao.maps.LatLng(firstLoc.위도, firstLoc.경도), 
+              image: markerImg 
+          });
+
+          kakao.maps.event.addListener(m, 'click', function() {
+              // 팝업 내부의 HTML을 합치기 위한 변수
+              var content = `<div class="iw-container">`;
+              
+              // 이 자리에 있는 모든 옹달샘 데이터를 하나씩 합침
+              groupList.forEach(loc => {
+                  var photoBtn = "";
+                  if (loc.사진 && loc.사진.startsWith("http")) {
+                      photoBtn = `
+                        <div>
+                          <a href="${loc.사진}" target="_blank" class="iw-photo-btn">🖼️ 사진 보기</a>
+                        </div>
+                      `;
+                  }
+
+                  content += `
+                    <div class="iw-item">
+                        <span class="iw-title" style="font-weight:800; color:#1DA1D2; font-size:16px;">${loc.장소명}</span>
+                        <div class="iw-tag-group">
+                            <span class="iw-tag">📍 ${loc.장소유형}</span>
+                            <span class="iw-tag">💧 ${loc.제공유형}</span>
+                        </div>
+                        <div class="iw-memo" style="font-size:13px; margin:8px 0; border-top:1px dashed #ddd; padding-top:8px; color:#4a5568; line-height:1.4;">
+                            ${loc.메모 || '등록된 메모가 없습니다.'}
+                        </div>
+                        ${photoBtn} 
+                        <button class="report-btn" onclick="openModify('${loc.일련번호}', '${loc.장소명}')" 
+                                style="width:100%; margin-top:5px; padding:6px; border:1px solid #fed7d7; background:#fff5f5; cursor:pointer; border-radius:6px; font-size:11px; color:#e53e3e;">
+                            정보 수정/삭제 신고
+                        </button>
+                    </div>`;
+              });
+
+              content += `</div>`; // 컨테이너 닫기
+              
+              infowindow.setContent(content);
+              infowindow.open(map, m);
+          });
+          
+          currentMarkers.push(m);
       });
   }
 
@@ -421,7 +440,6 @@
     const fileInput = document.getElementById('photo');
     const file = fileInput.files[0];
 
-    // ✅ 필수값 체크 복구
     const name = document.getElementById('placeName').value;
     const addr = document.getElementById('address').value;
     const pType = document.getElementById('placeType').value;
@@ -442,7 +460,6 @@
       장소유형: pType, 제공유형: wType,
       메모: document.getElementById('memo').value,
       제보자명: document.getElementById('reporterName').value
-
     };
 
     if (file) {
@@ -469,7 +486,7 @@
   function submit(payload) {
     fetch(GAS_URL, {
       method: "POST",
-      mode: "no-cors", // 💡 구글 스크립트와의 교차 출처 문제를 무시하고 일단 보냅니다.
+      mode: "no-cors", 
       cache: "no-cache",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
