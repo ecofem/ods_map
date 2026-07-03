@@ -505,7 +505,7 @@
 
   // 💡 이 함수 전체를 찾아서 아래 내용으로 교체해 주세요!
   function openModify(id, name) {
-    // 1. 사유 입력 (★ 취소 버튼 분리 및 안내 문구 세분화 업데이트!)
+    // 1. 사유 입력
     var reason = prompt(`[${name}] 수정/삭제 사유를 적어주세요.`);
     
     // 사용자가 '취소' 버튼을 누른 경우
@@ -517,10 +517,10 @@
     // 아무것도 안 적고 '확인'을 누른 경우 (공백 포함)
     if (reason.trim() === "") {
         alert("수정/삭제 사유를 입력하셔야 신고가 접수됩니다.");
-        continue;
+        return;
     }
 
-    // 2. 연락처 입력 (필수) 및 형식 필터링 (★ 무한 재입력 및 사유 보존 로직)
+    // 2. 연락처 입력 (필수) 및 형식 필터링
     var contact = "";
     var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     var phoneRegex = /^(01[016789]-?\d{3,4}-?\d{4}|02-?\d{3,4}-?\d{4}|0[3-6][1-5]-?\d{3,4}-?\d{4}|\d{9,11})$/;
@@ -528,7 +528,6 @@
     while (true) {
         contact = prompt(`[확인 필수] 수정/삭제 요청 확인을 위한 제보자님의 연락처(이메일 또는 전화번호)를 적어주세요.`);
         
-        // 사용자가 '취소' 버튼을 누른 경우에만 기존 작성 내용을 취소하고 나감
         if (contact === null) {
             alert("신고가 취소되었습니다.");
             return;
@@ -536,25 +535,22 @@
 
         contact = contact.trim();
 
-        // 아무것도 안 쓰고 확인을 누른 경우
         if (contact === "") {
             alert("연락처는 필수 입력 사항입니다. 다시 입력해 주세요.");
-            continue; // 🔄 다시 입력창 띄우기
+            continue;
         }
 
-        // 형식이 올바른지 검사
         if (emailRegex.test(contact) || phoneRegex.test(contact)) {
-            break; // 🔓 올바르게 입력했으므로 반복문을 빠져나가 다음 단계(전송)로 진행!
+            break; 
         } else {
-            alert("형식이 올바르지 않습니다. 다시 입력해 주세요.");
-            // 🔄 형식이 틀렸으므로 continue 없이도 자동으로 다시 입력창이 뜹니다.
+            alert("형식이 올바르지 않습니다.\n올바른 이메일 주소나 전화번호(예: 010-1234-5678)로 다시 입력해 주세요.");
         }
     }
     
-    // 3. 구글로 안전하게 전송 (CORS 정책 차단 방지를 위해 옵션 수정)
+    // 3. 구글로 안전하게 전송
     fetch(GAS_URL, { 
       method: "POST", 
-      mode: "no-cors", // 👈 브라우저가 전송을 차단하지 못하도록 이 줄이 꼭 필요합니다!
+      mode: "no-cors", 
       cache: "no-cache",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
@@ -562,7 +558,7 @@
         일련번호: id || "ID_MISSING", 
         장소명: name, 
         수정요청사항: reason,
-        연락처: contact.trim()
+        연락처: contact
       }) 
     })
     .then(() => {
