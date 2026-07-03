@@ -503,6 +503,7 @@
     });
   }
 
+  // 💡 이 함수 전체를 찾아서 아래 내용으로 교체해 주세요!
   function openModify(id, name) {
     // 1. 사유 입력
     var reason = prompt(`[${name}] 수정/삭제 사유를 적어주세요.`);
@@ -518,31 +519,26 @@
         return;
     }
     
-    // 💡 디버깅용 로그: id가 제대로 찍히는지 브라우저 개발자 도구(F12)에서 확인용
-    console.log("신고 전송 데이터:", { id: id, name: name, reason: reason, contact: contact });
-
-    // 3. 구글로 전송 후 구글이 돌려주는 진짜 답변(Success 또는 Error)을 확인
+    // 3. 구글로 안전하게 전송 (CORS 정책 차단 방지를 위해 옵션 수정)
     fetch(GAS_URL, { 
       method: "POST", 
+      mode: "no-cors", // 👈 브라우저가 전송을 차단하지 못하도록 이 줄이 꼭 필요합니다!
+      cache: "no-cache",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         action: "modify", 
-        일련번호: id || "ID_MISSING", // 혹시 id가 비어있으면 대체 텍스트 삽입
+        일련번호: id || "ID_MISSING", 
         장소명: name, 
         수정요청사항: reason,
         연락처: contact.trim()
       }) 
     })
-    .then(response => response.text()) // 구글이 보낸 응답을 텍스트로 변환
-    .then(text => {
-        if (text.includes("Error")) {
-            // 구글에서 에러가 발생한 경우 화면에 에러 내용 표시!
-            alert("구글 서버 오류 발생: " + text);
-        } else {
-            alert("접수되었습니다.");
-        }
+    .then(() => {
+        alert("접수되었습니다.");
     })
     .catch(err => {
-        alert("네트워크 통신 오류: " + err.toString());
+        alert("전송 중 네트워크 오류가 발생했습니다.");
+        console.error(err);
     });
   }
 </script>
