@@ -505,19 +505,28 @@
 
   // 💡 이 함수 전체를 찾아서 아래 내용으로 교체해 주세요!
   function openModify(id, name) {
-    // 1. 사유 입력
-    var reason = prompt(`[${name}] 수정/삭제 사유를 적어주세요.`);
+    // 1. 사유 입력 (★ 올바르게 적을 때까지 반복창 대령!)
+    var reason = "";
     
-    // 사용자가 '취소' 버튼을 누른 경우
-    if (reason === null) {
-        alert("신고가 취소되었습니다.");
-        return;
-    }
-    
-    // 아무것도 안 적고 '확인'을 누른 경우 (공백 포함)
-    if (reason.trim() === "") {
-        alert("수정/삭제 사유를 입력하셔야 신고가 접수됩니다.");
-        return;
+    while (true) {
+        reason = prompt(`[${name}] 수정/삭제 사유를 적어주세요.`);
+        
+        // 사용자가 '취소' 버튼을 누른 경우 ➔ 즉시 종료
+        if (reason === null) {
+            alert("신고가 취소되었습니다.");
+            return;
+        }
+
+        reason = reason.trim();
+
+        // 아무것도 안 적고 '확인'을 누른 경우 ➔ 안내 후 다시 입력창 띄우기
+        if (reason === "") {
+            alert("수정/삭제 사유를 입력하셔야 신고가 접수됩니다.");
+            continue; // 🔄 이제 while 문 안쪽이라 continue가 아주 똑똑하게 잘 작동합니다!
+        }
+
+        // 사유를 잘 적었다면 반복문 탈출!
+        break;
     }
 
     // 2. 연락처 입력 (필수) 및 형식 필터링
