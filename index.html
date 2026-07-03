@@ -504,34 +504,46 @@
   }
 
   function openModify(id, name) {
-    // 1. 수정/삭제 사유 입력받기 (필수)
+    // 1. 사유 입력
     var reason = prompt(`[${name}] 수정/삭제 사유를 적어주세요.`);
     if (!reason) {
         alert("수정/삭제 사유를 입력하셔야 신고가 접수됩니다.");
-        return; // 취소 또는 빈칸이면 중단
+        return;
     }
 
-    // 2. 제보자 연락처 입력받기 (필수 검증 추가)
+    // 2. 연락처 입력 (필수)
     var contact = prompt(`수정/삭제 요청 확인을 위한 제보자님의 연락처(이메일 또는 전화번호)를 적어주세요. (필수 입력)`);
-    
-    // 💡 연락처 공백 제거 후 빈칸이거나 취소를 누른 경우 체크
     if (!contact || contact.trim() === "") {
         alert("확인을 위한 연락처는 필수 입력 사항입니다. 다시 시도해 주세요.");
-        return; // 빈칸이거나 취소하면 구글 시트로 보내지 않고 여기서 중단!
+        return;
     }
     
-    // 3. 모두 올바르게 입력되었을 때만 구글 스크립트로 데이터 전송
+    // 💡 디버깅용 로그: id가 제대로 찍히는지 브라우저 개발자 도구(F12)에서 확인용
+    console.log("신고 전송 데이터:", { id: id, name: name, reason: reason, contact: contact });
+
+    // 3. 구글로 전송 후 구글이 돌려주는 진짜 답변(Success 또는 Error)을 확인
     fetch(GAS_URL, { 
       method: "POST", 
       body: JSON.stringify({ 
         action: "modify", 
-        일련번호: id, 
+        일련번호: id || "ID_MISSING", // 혹시 id가 비어있으면 대체 텍스트 삽입
         장소명: name, 
         수정요청사항: reason,
-        연락처: contact.trim() // 앞뒤 공백을 깔끔하게 지워서 전송
+        연락처: contact.trim()
       }) 
     })
-    .then(() => alert("접수되었습니다."));
+    .then(response => response.text()) // 구글이 보낸 응답을 텍스트로 변환
+    .then(text => {
+        if (text.includes("Error")) {
+            // 구글에서 에러가 발생한 경우 화면에 에러 내용 표시!
+            alert("구글 서버 오류 발생: " + text);
+        } else {
+            alert("접수되었습니다.");
+        }
+    })
+    .catch(err => {
+        alert("네트워크 통신 오류: " + err.toString());
+    });
   }
 </script>
 </body>
