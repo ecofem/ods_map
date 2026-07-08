@@ -231,10 +231,41 @@
   </div>
 </div>
 
-<div id="footer" onclick="window.open('https://ecofem.campaignus.me/72')">
-  <img src="https://cdn.imweb.me/thumbnail/20240318/32f45df1c6e8a.png">
-  <p>© 여성환경연대 All rights reserved.</p>
+<div id="footer" style="padding: 20px 0; text-align: center; background-color: #ffffff;">
+  
+  <div style="
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    overflow-x: auto; 
+    white-space: nowrap; 
+    padding: 10px 20px;
+    justify-content: flex-start; /* PC나 로고가 적을 땐 기본 정렬, 많아지면 왼쪽부터 스크롤 */
+    -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤 효과 */
+  " class="logo-slider">
+    
+    <img src="https://cdn.imweb.me/thumbnail/20240318/32f45df1c6e8a.png" 
+         onclick="window.open('https://ecofem.campaignus.me/72')" 
+         style="height: 50px; cursor: pointer; flex-shrink: 0;">
+         
+    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/03f53e37da15a.png" 
+         onclick="window.open('https://blog.naver.com/neesc/224323843828')" 
+         style="height: 50px; cursor: pointer; flex-shrink: 0;">
+       
+    </div>
+  
+  <p style="margin: 15px 0 0 0; font-size: 13px; color: #666;">© 여성환경연대 All rights reserved.</p>
 </div>
+
+<style>
+  .logo-slider::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라에서 스크롤바 숨기기 */
+  }
+  .logo-slider {
+    -ms-overflow-style: none;  /* 인터넷 익스플로러 */
+    scrollbar-width: none;  /* 파이어폭스 */
+  }
+</style>   
 
 <script>
   var map, ps, geocoder, tempMarker, infowindow;
