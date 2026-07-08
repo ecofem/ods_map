@@ -455,23 +455,51 @@
 
   function searchPlaces() {
     var kw = document.getElementById('keyword').value;
+    
+    // 💡 앞뒤 공백을 제거하고, 아무것도 안 적었으면 검색 차단
+    kw = kw.trim();
+    if (!kw) {
+        alert("검색어를 입력해 주세요.");
+        return;
+      }
+  
     ps.keywordSearch(kw, (data, status) => {
-      var list = document.getElementById('searchList'); list.innerHTML = "";
+      var list = document.getElementById('searchList'); 
+      list.innerHTML = "";
+      
       if (status === kakao.maps.services.Status.OK) {
         list.style.display = "block";
+        
+        // 💡 검색 목록이 잘 보이도록 목록 영역으로 화면을 부드럽게 스크롤 (모바일 배려)
+        list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
         data.forEach(p => {
           var li = document.createElement('li');
-          li.style.padding = "10px"; li.style.cursor = "pointer"; li.style.borderBottom = "1px solid #eee";
+          li.style.padding = "10px"; 
+          li.style.cursor = "pointer"; 
+          li.style.borderBottom = "1px solid #eee";
           li.innerHTML = `<b>${p.place_name}</b><br><small>${p.road_address_name || p.address_name}</small>`;
+          
           li.onclick = () => {
             document.getElementById('placeName').value = p.place_name;
             document.getElementById('address').value = p.road_address_name || p.address_name;
-            document.getElementById('lat').value = p.y; document.getElementById('lng').value = p.x;
-            var pos = new kakao.maps.LatLng(p.y, p.x); map.setCenter(pos); tempMarker.setPosition(pos); tempMarker.setMap(map);
+            document.getElementById('lat').value = p.y; 
+            document.getElementById('lng').value = p.x;
+            
+            var pos = new kakao.maps.LatLng(p.y, p.x); 
+            map.setCenter(pos); 
+            tempMarker.setPosition(pos); 
+            tempMarker.setMap(map);
             list.style.display = "none";
           };
           list.appendChild(li);
         });
+      } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+        // 💡 검색 결과가 아예 없을 때 알려주기
+        alert("검색 결과가 없습니다. 정확한 명칭이나 띄어쓰기를 확인해 주세요!");
+      } else {
+        // 💡 서버 에러 등이 날 때 알려주기
+        alert("검색 중 오류가 발생했습니다.");
       }
     });
   }
