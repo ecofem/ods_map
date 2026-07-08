@@ -104,8 +104,18 @@
       }
     
       #footer {
-        margin-top: 10 !important;
-        padding: 10 !important;
+        margin-top: 10px !important;
+        padding: 10px !important;
+      }
+    }
+
+    /* 💡 [여기에 새로 추가!] 스마트폰/모바일 화면에서만 작동하는 마법의 구역 */
+    @media (max-width: 767px) {
+      #map {
+        height: 520px !important;     /* 📱 모바일 지도 높이를 520px로 시원하게 확대! */
+      }
+      .map_wrap {
+        height: 520px !important;     /* 지도를 감싸는 박스도 똑같이 세트로 확대! */
       }
     }
     
