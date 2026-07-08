@@ -211,7 +211,7 @@
 
   <div class="form-container">
      <div class="search-box" style="display:flex; gap:4px; align-items: center; margin-bottom: 8px;">
-      <input type="text" id="keyword" placeholder="장소 검색" 
+      <input type="text" id="keyword" placeholder="제보할 장소를 검색하거나 지도에서 터치해주세요" 
          onkeypress="if(event.keyCode==13) { searchPlaces(); return false; }"
          style="margin-bottom: 0 !important; height: 40px;"> <button id="searchBtn" onclick="searchPlaces()" 
           style="width:75px; height:40px; background:#1DA1D2; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer; 
@@ -221,7 +221,7 @@
     </div>
     <ul id="searchList" style="list-style:none; padding:0; display:none; border:1px solid #e2e8f0; border-radius:12px; margin-bottom:12px; max-height:150px; overflow-y:auto;"></ul>
     
-    <input type="text" id="placeName" placeholder="장소명">
+    <input type="text" id="placeName" placeholder="장소명 (수정이 가능합니다)">
     <input type="text" id="address" placeholder="주소 (검색/클릭 시 자동입력)" readonly>
     <input type="hidden" id="lat"><input type="hidden" id="lng">
     
