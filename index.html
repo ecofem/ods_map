@@ -12,103 +12,100 @@
     * { font-family: 'Pretendard', sans-serif; box-sizing: border-box; }
     body { margin: 0; padding: 0; background: #fcfdfe; color: #333; display: flex; flex-direction: column; min-height: 100vh }
     #header { background: white; padding: 0 20px; display: flex; align-items: center; gap: 12px; border-bottom: 3px solid #1DA1D2; height: 70px; flex-shrink: 0; z-index: 100; cursor: pointer; }
-    #header img { height: 40px; } 
+    #header img { height: 40px; }
     #header h2 { margin: 0; font-size: 22px; font-weight: 800; color: #1DA1D2; letter-spacing: -0.5px; }
-    
+
     #main-wrapper { display: flex; flex-direction: column; flex: 1; position: relative; }
     #map { height: 200px; width: 100%; background: #f0f0f0; }
     /* 1. [모바일 기본] 모든 입력창 공통 설정 */
-    input, select, textarea { 
-      width: 100%; 
-      margin-bottom: 5px !important; /* 간격을 5px로 좁게 설정 */  
-      padding: 0 12px; 
-      border: 1.5px solid #e2e8f0; 
-      border-radius: 8px; 
-      font-size: 14px; 
+    input, select, textarea {
+      width: 100%;
+      margin-bottom: 5px !important; /* 간격을 5px로 좁게 설정 */
+      padding: 0 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
       height: 40px;          /* 입력창 높이 조절 */
-      outline: none; 
+      outline: none;
       box-sizing: border-box; /* 패딩이 높이에 영향을 주지 않도록 설정 */
     }
-    
+
     /* 2. [모바일 기본] 제보창 컨테이너 여백 줄이기 */
-    .form-container { 
+    .form-container {
       padding: 8px 20px !important; /* 위아래는 8px로 좁게, 좌우는 20px 유지 */
-      background: white; 
-      flex: 1; 
+      background: white;
+      flex: 1;
       max-height: 35%;       /* 높이 비중을 살짝 더 낮춤 */
-      overflow-y: auto; 
-      border-top: 1px solid #edf2f7; 
-    }
-    
-    /* 3. textarea는 높이가 따로 필요하니까 추가 */
-    textarea { 
-      height: 60px !important; 
-      padding: 8px 12px !important; 
+      overflow-y: auto;
+      border-top: 1px solid #edf2f7;
     }
 
-    /* ✅ 필터 UI 스타일 */ 
-    .filter-wrapper { position: absolute; top: 15px; left: 15px; z-index: 1000; }
-    .filter-toggle-btn { 
-        background: #1DA1D2; color: white; border: none; padding: 10px 15px; 
-        border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+    /* 3. textarea는 높이가 따로 필요하니까 추가 */
+    textarea {
+      height: 60px !important;
+      padding: 8px 12px !important;
     }
-    .filter-content { 
-        display: none; background: white; margin-top: 10px; padding: 15px; 
+    /* ✅ 필터 UI 스타일 */
+    .filter-wrapper { position: absolute; top: 15px; left: 15px; z-index: 1000; }
+    .filter-toggle-btn {
+        background: #1DA1D2; color: white; border: none; padding: 10px 15px;
+        border-radius: 8px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .filter-content {
+        display: none; background: white; margin-top: 10px; padding: 15px;
         border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         width: 180px; max-height: 400px; overflow-y: auto;
     }
     .filter-group { margin-bottom: 12px; }
     .filter-group label { display: block; font-size: 11px; color: #a0aec0; margin-bottom: 5px; font-weight: bold; border-bottom: 1px solid #f0f4f8; padding-bottom: 2px; }
-    .filter-item { 
-        display: block; width: 100%; text-align: left; padding: 8px 10px; 
-        margin-bottom: 4px; border: 1px solid #f8fafc; border-radius: 6px; 
+    .filter-item {
+        display: block; width: 100%; text-align: left; padding: 8px 10px;
+        margin-bottom: 4px; border: 1px solid #f8fafc; border-radius: 6px;
         font-size: 13px; cursor: pointer; background: #fff; color: #4a5568;
-    } 
+    }
     .filter-item.active { background: #f0f9ff; color: #1DA1D2; border-color: #1DA1D2; font-weight: bold; }
-
     .form-container { padding: 10px 20px; background: white; flex: 1; max-height: 38%; overflow-y: auto; border-top: 1px solid #edf2f7; }
     @media (min-width: 768px) {
-      body { 
-        height: auto !important; 
-        display: block !important; 
+      body {
+        height: auto !important;
+        display: block !important;
       }
-    
-      #main-wrapper { 
+
+      #main-wrapper {
         display: flex !important;   /* ✅ 이 줄이 반드시 있어야 지도와 폼이 나란히 배치됩니다 */
-        flex-direction: row !important; 
-        height: auto !important; 
-        min-height: 550px !important; 
-        margin-bottom: 0 !important; 
+        flex-direction: row !important;
+        height: auto !important;
+        min-height: 550px !important;
+        margin-bottom: 0 !important;
         align-items: stretch !important;
         background: white;
-      } 
-    
-      #map { 
+      }
+
+      #map {
         flex: 1.6 !important;       /* ✅ 지도가 1.6만큼 차지 */
         width: auto !important;      /* 넓이 자동 계산 */
-        height: auto !important; 
+        height: auto !important;
         min-height: 550px !important;
-        border-top: none; 
-        border-right: 1px solid #edf2f7; 
+        border-top: none;
+        border-right: 1px solid #edf2f7;
       }
-    
-      .form-container { 
+
+      .form-container {
         flex: 1 !important;          /* ✅ 입력폼이 1만큼 차지 */
-        max-width: 420px; 
-        height: auto !important; 
+        max-width: 420px;
+        height: auto !important;
         min-height: 550px !important;
-        border-top: none !important; 
-        padding: 20px !important; 
-        overflow: visible !important; 
+        border-top: none !important;
+        padding: 20px !important;
+        overflow: visible !important;
         background: white;
       }
-    
+
       #footer {
         margin-top: 10px !important;
         padding: 10px !important;
       }
     }
-
     /* 💡 [여기에 새로 추가!] 스마트폰/모바일 화면에서만 작동하는 마법의 구역 */
     @media (max-width: 767px) {
       #map {
@@ -118,56 +115,56 @@
         height: 350px !important;     /* 지도를 감싸는 박스도 똑같이 세트로 확대! */
       }
     }
-    
+
     /* 1. 모든 입력창 공통: 간격을 8px로 통일 */
-    input, select, textarea { 
-      width: 100%; 
+    input, select, textarea {
+      width: 100%;
       margin-bottom: 8px !important; /* ✅ 모든 간격을 8px로 고정 */
-      padding: 0 12px; 
-      border: 1.5px solid #e2e8f0; 
-      border-radius: 8px; 
-      font-size: 15px; 
+      padding: 0 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 15px;
       height: 45px; /* ✅ 50px은 크고 40px은 작다면 45px이 '황금 비율'입니다 */
-      outline: none; 
-      transition: all 0.2s; 
+      outline: none;
+      transition: all 0.2s;
     }
-    
+
     /* 2. 메모장 설정: 마진을 다른 요소와 똑같이 8px로 복구 */
-    textarea { 
-      height: 80px !important; 
-      padding: 12px; 
-      resize: none; 
+    textarea {
+      height: 80px !important;
+      padding: 12px;
+      resize: none;
       margin-bottom: 8px !important; /* ✅ 4px에서 다시 8px로 복구 */
       display: block;
     }
-    
+
     /* 3. 사진 버튼: 위쪽 여백 없이 깔끔하게 */
-    .file-box { 
-      background: #f8fafc; 
-      border: 1.5px dashed #cbd5e0; 
-      margin-top: 0px; 
-      padding: 12px; 
-      border-radius: 8px; 
-      font-size: 15px; 
-      text-align: center; 
+    .file-box {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e0;
+      margin-top: 0px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      text-align: center;
       margin-bottom: 8px; /* ✅ 여기도 8px */
-      cursor: pointer; 
+      cursor: pointer;
     }
-    
+
     /* 4. 제보하기 버튼 */
-    #submitBtn { 
-      width: 100%; 
+    #submitBtn {
+      width: 100%;
       padding: 14px; /* 버튼은 조금 더 도톰해야 누르기 편합니다 */
-      background: #333; 
-      color: white; 
-      border: none; 
-      border-radius: 10px; 
-      font-weight: 700; 
-      cursor: pointer; 
-      font-size: 16px; 
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
       margin-top: 4px; /* 버튼만 아주 살짝 띄워주면 더 안정적입니다 */
     }
-        
+
     /* ✅ 팝업창(인포윈도우) 디자인 개선 */
     .iw-container { padding: 10px; width: 280px; max-height: 350px; overflow-y: auto; }
     .iw-item { border-bottom: 2px solid #edf2f7; padding-bottom: 12px; margin-bottom: 12px; }
@@ -175,41 +172,74 @@
     .iw-tag-group { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
     .iw-tag { font-size: 12px; color: #718096; display: flex; align-items: center; gap: 3px; }
     /* ✅ 팝업창 내 이미지 스타일 수정 */
-    .iw-photo-btn { 
-      display: block; padding: 8px; background: #1DA1D2; color: white; 
+    .iw-photo-btn {
+      display: block; padding: 8px; background: #1DA1D2; color: white;
       text-decoration: none; border-radius: 6px; text-align: center; font-size: 13px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       margin: 8px 0;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      outline: none;
     }
-    
+
+    /* ✅ 사진 모달(팝업) 스타일 */
+    .photo-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      cursor: zoom-out;
+    }
+    .photo-modal.active { display: flex; }
+    .photo-modal img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      cursor: default;
+    }
+    .photo-modal-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      color: white;
+      font-size: 34px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
+
     .report-btn { font-size: 12px !important; font-weight: 700 !important; color: #e53e3e !important; }
-    
+
     #footer { background: #fff; margin-top: 0px !important; padding: 0 0; text-align: center; border-top: 1px solid #f7fafc; flex-shrink: 0; cursor: pointer; }
     #footer img { height: 55px; }
-    #footer p { font-size: 12px; color: #a0aec0; margin: 0px 0 0 0; } 
- 
+    #footer p { font-size: 12px; color: #a0aec0; margin: 0px 0 0 0; }
+
       /* 💻 PC(데스크탑) 화면에서는 무조건 기분 좋게 가운데 정렬! */
     .logo-slider {
       justify-content: flex-start;
     }
-    
+
     /* 💻 PC 화면(768px 이상): 여유 공간이 넓으므로 가운데 정렬 */
     @media (min-width: 768px) {
       .logo-slider {
         justify-content: center;
       }
-    } 
+    }
   </style>
 </head>
 <body>
-
 <div id="header" onclick="location.reload()">
   <img src="https://cdn.imweb.me/thumbnail/20251128/b7491b79114f2.png">
   <h2>모두를 위한 옹달샘 지도</h2>
 </div>
-
 <div id="main-wrapper">
   <div id="map"></div>
-  
+
   <div class="filter-wrapper">
     <button class="filter-toggle-btn" onclick="toggleFilter()">🔍 유형별 보기</button>
     <div id="filter-content" class="filter-content">
@@ -220,23 +250,22 @@
       <div id="filter-water-group" class="filter-group"><label>💧 제공 유형</label></div>
     </div>
   </div>
-
   <div class="form-container">
      <div class="search-box" style="display:flex; gap:4px; align-items: center; margin-bottom: 8px;">
-      <input type="text" id="keyword" placeholder="제보 장소를 검색하거나 터치해주세요" 
+      <input type="text" id="keyword" placeholder="제보 장소를 검색하거나 터치해주세요"
          onkeypress="if(event.keyCode==13) { searchPlaces(); return false; }"
-         style="margin-bottom: 0 !important; height: 40px;"> <button id="searchBtn" onclick="searchPlaces()" 
-          style="width:75px; height:40px; background:#1DA1D2; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer; 
+         style="margin-bottom: 0 !important; height: 40px;"> <button id="searchBtn" onclick="searchPlaces()"
+          style="width:75px; height:40px; background:#1DA1D2; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer;
                  display: flex; align-items: center; justify-content: center; line-height: 1;">
         검색
       </button>
     </div>
     <ul id="searchList" style="list-style:none; padding:0; display:none; border:1px solid #e2e8f0; border-radius:12px; margin-bottom:12px; max-height:150px; overflow-y:auto;"></ul>
-    
+
     <input type="text" id="placeName" placeholder="장소명 (수정이 가능합니다)">
     <input type="text" id="address" placeholder="주소 (검색/터치 시 자동으로 입력됩니다)" readonly>
     <input type="hidden" id="lat"><input type="hidden" id="lng">
-    
+
     <div style="display: flex; gap: 4px;">
       <select id="placeType"><option value="">장소 유형</option></select>
       <select id="waterType"><option value="">제공 유형</option></select>
@@ -248,70 +277,91 @@
       <input type="file" id="photo" style="display:none" accept="image/*" onchange="document.getElementById('file-name').innerText = this.files[0].name">
       <span id="file-name"></span>
     </div>
-    
+
     <button id="submitBtn" onclick="sendReport()">제보하기</button>
   </div>
 </div>
-
 <div id="footer" style="padding: 5px 0 15px 0; text-align: center; background-color: #ffffff; margin-top: 10px !important;">
-  
+
   <div style="
-    display: flex; 
-    align-items: center; 
-    gap: 20px; 
-    overflow-x: auto; 
-    white-space: nowrap; 
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
     padding: 5px 20px;
     -webkit-overflow-scrolling: touch;
   " class="logo-slider">
-    
-    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/64a81f4a4e7e6.png" 
-         onclick="window.open('https://ecofem.campaignus.me/72')" 
-         style="height: 35px; cursor: pointer; flex-shrink: 0;">
-         
-    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/806b03cb76273.png" 
-         onclick="window.open('https://blog.naver.com/neesc/224323843828')" 
+
+    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/64a81f4a4e7e6.png"
+         onclick="window.open('https://ecofem.campaignus.me/72')"
          style="height: 35px; cursor: pointer; flex-shrink: 0;">
 
-    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/e84a8903a7e83.jpg" 
-         onclick="window.open('https://www.chuncheon21.org')" 
+    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/806b03cb76273.png"
+         onclick="window.open('https://blog.naver.com/neesc/224323843828')"
          style="height: 35px; cursor: pointer; flex-shrink: 0;">
-       
+    <img src="https://cdn.imweb.me/upload/S20210309bc33078ae88ba/e84a8903a7e83.jpg"
+         onclick="window.open('https://www.chuncheon21.org')"
+         style="height: 35px; cursor: pointer; flex-shrink: 0;">
+
   </div>
-  
+
   <p style="margin: 5px 0 0 0; font-size: 13px; color: #666;">여성환경연대가 만들고, 지역 단체들과 함께합니다</p>
 </div>
-  
 
+<!-- ✅ 사진 확대 모달 -->
+<div id="photoModal" class="photo-modal" onclick="closePhotoModal()">
+  <span class="photo-modal-close" onclick="closePhotoModal()">&times;</span>
+  <img id="photoModalImg" src="" alt="현장 사진" onclick="event.stopPropagation()">
+</div>
 
 <script>
   var map, ps, geocoder, tempMarker, infowindow;
   var locationsData = [];
   var currentMarkers = [];
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbwLIYHSb6zqeZ7Tneg9mmiAbiFfmhOGbC-wItwqiKL2jgPyUvrcUu6NzM80MwPj3L62/exec"; 
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbwLIYHSb6zqeZ7Tneg9mmiAbiFfmhOGbC-wItwqiKL2jgPyUvrcUu6NzM80MwPj3L62/exec";
   const markerImg = new kakao.maps.MarkerImage("https://cdn.imweb.me/thumbnail/20251128/b7491b79114f2.png", new kakao.maps.Size(45, 45));
-
   var filterState = { place: 'all', water: 'all' };
-  
+
   // 데이터 로드
   fetch(GAS_URL).then(res => res.json()).then(res => {
-    locationsData = res.locations; 
+    locationsData = res.locations;
     updateDropdowns(res.config);
     createFilterButtons(res.config);
     if(map) renderMarkers();
   });
-
   function toggleFilter() {
     var content = document.getElementById('filter-content');
     content.style.display = (content.style.display === 'block') ? 'none' : 'block';
   }
-
+  // ✅ 사진 모달 열기/닫기
+  function openPhotoModal(url) {
+    document.getElementById('photoModalImg').src = toDriveDirectUrl(url);
+    document.getElementById('photoModal').classList.add('active');
+  }
+  function closePhotoModal() {
+    document.getElementById('photoModal').classList.remove('active');
+    document.getElementById('photoModalImg').src = '';
+  }
+  // ✅ 구글 드라이브 링크(uc?export=view&id=... / lh3.googleusercontent.com/d/... 등)에서
+  //    파일 ID만 뽑아 lh3.googleusercontent.com 형태로 통일 (이미지가 안 뜨는 문제 방지)
+  function toDriveDirectUrl(url) {
+    if (!url) return url;
+    var match = url.match(/[-\w]{25,}/); // 구글 드라이브 파일 ID는 보통 25자 이상
+    if (match) {
+      return "https://lh3.googleusercontent.com/d/" + match[0] + "=w1000";
+    }
+    return url;
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePhotoModal();
+  });
   function createFilterButtons(config) {
     const pGroup = document.getElementById('filter-place-group');
     const wGroup = document.getElementById('filter-water-group');
     pGroup.querySelectorAll('.filter-item').forEach(el => el.remove());
     wGroup.querySelectorAll('.filter-item').forEach(el => el.remove());
-    
+
     config["장소유형"].forEach(val => {
         const btn = document.createElement('button');
         btn.className = 'filter-item';
@@ -319,7 +369,7 @@
         btn.onclick = function() { applyFilter('place', val, this); };
         pGroup.appendChild(btn);
     });
-    
+
     config["제공유형"].forEach(val => {
         const btn = document.createElement('button');
         btn.className = 'filter-item';
@@ -328,7 +378,6 @@
         wGroup.appendChild(btn);
     });
   }
-
   function applyFilter(type, value, element) {
     element.parentElement.querySelectorAll('.filter-item').forEach(b => b.classList.remove('active'));
     element.classList.add('active');
@@ -337,27 +386,24 @@
     if (type === 'water') filterState.water = value;
     renderMarkers();
   }
-
   function clearFilter() {
       filterState = { place: 'all', water: 'all' };
       document.querySelectorAll('.filter-item').forEach(b => b.classList.remove('active'));
       document.getElementById('filter-all').classList.add('active');
       renderMarkers();
   }
-
   // ✅ 마커 겹침 해결을 위해 그룹화 로직이 적용된 renderMarkers
   function renderMarkers() {
       currentMarkers.forEach(m => m.setMap(null));
       currentMarkers = [];
-      
+
       // 1. 위경도가 똑같은 것끼리 묶기 위한 그룹 객체 생성
       var groups = {};
-
       locationsData.forEach(loc => {
           if (loc.승인상태 === "승인") {
               const matchPlace = (filterState.place === 'all' || loc.장소유형 === filterState.place);
               const matchWater = (filterState.water === 'all' || loc.제공유형 === filterState.water);
-              
+
               if (matchPlace && matchWater) {
                   // 위도와 경도를 묶어 하나의 고유한 key 키값으로 지정 (예: "37.56_126.97")
                   var key = loc.위도 + "_" + loc.경도;
@@ -368,33 +414,30 @@
               }
           }
       });
-
       // 2. 묶인 그룹별로 마커 딱 하나씩만 그리기
       Object.keys(groups).forEach(key => {
           var groupList = groups[key];
           var firstLoc = groupList[0]; // 대표 좌표값으로 첫 번째 데이터 사용
-          
-          var m = new kakao.maps.Marker({ 
-              map: map, 
-              position: new kakao.maps.LatLng(firstLoc.위도, firstLoc.경도), 
-              image: markerImg 
-          });
 
+          var m = new kakao.maps.Marker({
+              map: map,
+              position: new kakao.maps.LatLng(firstLoc.위도, firstLoc.경도),
+              image: markerImg
+          });
           kakao.maps.event.addListener(m, 'click', function() {
               // 팝업 내부의 HTML을 합치기 위한 변수
               var content = `<div class="iw-container">`;
-              
+
               // 이 자리에 있는 모든 옹달샘 데이터를 하나씩 합침
               groupList.forEach(loc => {
                   var photoBtn = "";
                   if (loc.사진 && loc.사진.startsWith("http")) {
                       photoBtn = `
                         <div>
-                          <a href="${loc.사진}" target="_blank" class="iw-photo-btn">사진 보기</a>
+                          <button type="button" class="iw-photo-btn" onclick="openPhotoModal('${loc.사진}')">사진 보기</button>
                         </div>
                       `;
                   }
-
                   content += `
                     <div class="iw-item">
                         <span class="iw-title" style="font-weight:800; color:#1DA1D2; font-size:16px;">${loc.장소명}</span>
@@ -405,24 +448,22 @@
                         <div class="iw-memo" style="font-size:13px; margin:8px 0; border-top:1px dashed #ddd; padding-top:8px; color:#4a5568; line-height:1.4;">
                             ${loc.메모 || '등록된 메모가 없습니다.'}
                         </div>
-                        ${photoBtn} 
-                        <button class="report-btn" onclick="openModify('${loc.일련번호}', '${loc.장소명}')" 
+                        ${photoBtn}
+                        <button class="report-btn" onclick="openModify('${loc.일련번호}', '${loc.장소명}')"
                                 style="width:100%; margin-top:5px; padding:6px; border:1px solid #fed7d7; background:#fff5f5; cursor:pointer; border-radius:6px; font-size:11px; color:#e53e3e;">
                             정보 수정/삭제 신고
                         </button>
                     </div>`;
               });
-
               content += `</div>`; // 컨테이너 닫기
-              
+
               infowindow.setContent(content);
               infowindow.open(map, m);
           });
-          
+
           currentMarkers.push(m);
       });
   }
-
   window.onload = function() {
     var container = document.getElementById('map');
     map = new kakao.maps.Map(container, { center: new kakao.maps.LatLng(37.5665, 126.9780), level: 4 });
@@ -430,7 +471,6 @@
     geocoder = new kakao.maps.services.Geocoder();
     tempMarker = new kakao.maps.Marker({ image: markerImg });
     infowindow = new kakao.maps.InfoWindow({ zIndex: 10, removable: true });
-
     kakao.maps.event.addListener(map, 'click', function(e) {
       var latlng = e.latLng;
       tempMarker.setPosition(latlng); tempMarker.setMap(map);
@@ -443,14 +483,12 @@
         }
       });
     });
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(pos) {
             map.setCenter(new kakao.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
         });
     }
   };
-
   function updateDropdowns(config) {
     const pSel = document.getElementById('placeType');
     const wSel = document.getElementById('waterType');
@@ -459,43 +497,42 @@
     config["장소유형"].forEach(v => { pSel.innerHTML += `<option value="${v}">${v}</option>`; });
     config["제공유형"].forEach(v => { wSel.innerHTML += `<option value="${v}">${v}</option>`; });
   }
-
   function searchPlaces() {
     var kw = document.getElementById('keyword').value;
-    
+
     // 💡 앞뒤 공백을 제거하고, 아무것도 안 적었으면 검색 차단
     kw = kw.trim();
     if (!kw) {
         alert("검색어를 입력해 주세요.");
         return;
       }
-  
+
     ps.keywordSearch(kw, (data, status) => {
-      var list = document.getElementById('searchList'); 
+      var list = document.getElementById('searchList');
       list.innerHTML = "";
-      
+
       if (status === kakao.maps.services.Status.OK) {
         list.style.display = "block";
-        
+
         // 💡 검색 목록이 잘 보이도록 목록 영역으로 화면을 부드럽게 스크롤 (모바일 배려)
         list.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        
+
         data.forEach(p => {
           var li = document.createElement('li');
-          li.style.padding = "10px"; 
-          li.style.cursor = "pointer"; 
+          li.style.padding = "10px";
+          li.style.cursor = "pointer";
           li.style.borderBottom = "1px solid #eee";
           li.innerHTML = `<b>${p.place_name}</b><br><small>${p.road_address_name || p.address_name}</small>`;
-          
+
           li.onclick = () => {
             document.getElementById('placeName').value = p.place_name;
             document.getElementById('address').value = p.road_address_name || p.address_name;
-            document.getElementById('lat').value = p.y; 
+            document.getElementById('lat').value = p.y;
             document.getElementById('lng').value = p.x;
-            
-            var pos = new kakao.maps.LatLng(p.y, p.x); 
-            map.setCenter(pos); 
-            tempMarker.setPosition(pos); 
+
+            var pos = new kakao.maps.LatLng(p.y, p.x);
+            map.setCenter(pos);
+            tempMarker.setPosition(pos);
             tempMarker.setMap(map);
             list.style.display = "none";
           };
@@ -510,24 +547,19 @@
       }
     });
   }
-
   function sendReport() {
     const btn = document.getElementById('submitBtn');
     const fileInput = document.getElementById('photo');
     const file = fileInput.files[0];
-
     const name = document.getElementById('placeName').value;
     const addr = document.getElementById('address').value;
     const pType = document.getElementById('placeType').value;
     const wType = document.getElementById('waterType').value;
-
     if(!name || !addr || !pType || !wType) {
         alert("장소명, 주소, 유형을 모두 입력해주세요!");
         return;
     }
-
     btn.disabled = true; btn.innerText = "전송 중...";
-
     const payload = {
       action: "new",
       장소명: name, 주소: addr,
@@ -537,7 +569,6 @@
       메모: document.getElementById('memo').value,
       제보자명: document.getElementById('reporterName').value
     };
-
     if (file) {
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -558,11 +589,10 @@
       reader.readAsDataURL(file);
     } else { submit(payload); }
   }
-
   function submit(payload) {
     fetch(GAS_URL, {
       method: "POST",
-      mode: "no-cors", 
+      mode: "no-cors",
       cache: "no-cache",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -578,73 +608,64 @@
       document.getElementById('submitBtn').innerText = "제보하기";
     });
   }
-
   // 💡 이 함수 전체를 찾아서 아래 내용으로 교체해 주세요!
   function openModify(id, name) {
     // 1. 사유 입력 (★ 올바르게 적을 때까지 반복창 대령!)
     var reason = "";
-    
+
     while (true) {
         reason = prompt(`[${name}] 수정/삭제 사유를 적어주세요.`);
-        
+
         // 사용자가 '취소' 버튼을 누른 경우 ➔ 즉시 종료
         if (reason === null) {
             alert("신고가 취소되었습니다.");
             return;
         }
-
         reason = reason.trim();
-
         // 아무것도 안 적고 '확인'을 누른 경우 ➔ 안내 후 다시 입력창 띄우기
         if (reason === "") {
             alert("수정/삭제 사유를 입력하셔야 신고가 접수됩니다.");
             continue; // 🔄 이제 while 문 안쪽이라 continue가 아주 똑똑하게 잘 작동합니다!
         }
-
         // 사유를 잘 적었다면 반복문 탈출!
         break;
     }
-
     // 2. 연락처 입력 (필수) 및 형식 필터링
     var contact = "";
     var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     var phoneRegex = /^(01[016789]-?\d{3,4}-?\d{4}|02-?\d{3,4}-?\d{4}|0[3-6][1-5]-?\d{3,4}-?\d{4}|\d{9,11})$/;
-
     while (true) {
         contact = prompt(`[확인 필수] 수정/삭제 요청 확인을 위한 제보자님의 연락처(이메일 또는 전화번호)를 적어주세요.`);
-        
+
         if (contact === null) {
             alert("신고가 취소되었습니다.");
             return;
         }
-
         contact = contact.trim();
-
         if (contact === "") {
             alert("연락처는 필수 입력 사항입니다. 다시 입력해 주세요.");
             continue;
         }
-
         if (emailRegex.test(contact) || phoneRegex.test(contact)) {
-            break; 
+            break;
         } else {
             alert("형식이 올바르지 않습니다.\n올바른 이메일 주소나 전화번호(예: 010-1234-5678)로 다시 입력해 주세요.");
         }
     }
-    
+
     // 3. 구글로 안전하게 전송
-    fetch(GAS_URL, { 
-      method: "POST", 
-      mode: "no-cors", 
+    fetch(GAS_URL, {
+      method: "POST",
+      mode: "no-cors",
       cache: "no-cache",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        action: "modify", 
-        일련번호: id || "ID_MISSING", 
-        장소명: name, 
+      body: JSON.stringify({
+        action: "modify",
+        일련번호: id || "ID_MISSING",
+        장소명: name,
         수정요청사항: reason,
         연락처: contact
-      }) 
+      })
     })
     .then(() => {
         alert("접수되었습니다.");
