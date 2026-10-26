@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>모두를 위한 옹달샘 지도</title>
-  <link rel="icon" type="image/png" href="https://cdn.imweb.me/thumbnail/20251128/b7491b79114f2.png">
-  <link rel="apple-touch-icon" href="https://cdn.imweb.me/thumbnail/20251128/b7491b79114f2.png">
+  <link rel="icon" type="image/png" href="logos/ongdalsaem-icon.png">
+  <link rel="apple-touch-icon" href="logos/ongdalsaem-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=27f59fa5635cc98fba48941abe374192&libraries=services"></script>
   <style>
@@ -264,7 +264,7 @@
 </head>
 <body>
 <div id="header" onclick="location.reload()">
-  <img src="https://cdn.imweb.me/thumbnail/20251128/b7491b79114f2.png">
+  <img src="logos/ongdalsaem-icon.png">
   <h2>모두를 위한 옹달샘 지도</h2>
 </div>
 <div id="main-wrapper">
@@ -331,14 +331,14 @@
   var locationsData = [];
   var currentMarkers = [];
   const GAS_URL = "https://script.google.com/macros/s/AKfycbwLIYHSb6zqeZ7Tneg9mmiAbiFfmhOGbC-wItwqiKL2jgPyUvrcUu6NzM80MwPj3L62/exec";
-  const markerImg = new kakao.maps.MarkerImage("https://cdn.imweb.me/thumbnail/20251128/b7491b79114f2.png", new kakao.maps.Size(45, 45));
+  const markerImg = new kakao.maps.MarkerImage("logos/ongdalsaem-icon.png", new kakao.maps.Size(45, 45));
   var filterState = { place: 'all', water: 'all' };
 
   // ✅ 푸터 로고 목록 (여기에 한 줄만 추가/삭제하면 모바일 자동 스크롤에도 자동 반영됩니다)
   const footerLogos = [
-    { src: "https://cdn.imweb.me/upload/S20210309bc33078ae88ba/64a81f4a4e7e6.png", link: "https://ecofem.campaignus.me/72" },
-    { src: "https://cdn.imweb.me/upload/S20210309bc33078ae88ba/806b03cb76273.png", link: "https://blog.naver.com/neesc/224323843828" },
-    { src: "https://cdn.imweb.me/upload/S20210309bc33078ae88ba/e84a8903a7e83.jpg", link: "https://www.chuncheon21.org" }
+    { src: "logos/logo-ecofem.png", link: "https://ecofem.campaignus.me/72" },
+    { src: "logo-neesc.png", link: "https://blog.naver.com/neesc/224323843828" },
+    { src: "logo-chuncheon21.jpg", link: "https://www.chuncheon21.org" }
     // 로고 추가 예시: { src: "이미지주소", link: "클릭 시 이동할 주소" },
   ];
   function renderFooterLogos() {
